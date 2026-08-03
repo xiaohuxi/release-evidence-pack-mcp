@@ -37,6 +37,63 @@ Use `release-evidence-pack-mcp` as the evidence source. Keep the review read-onl
 - Keep testcase logs, secrets, tokens, credentials, and private configuration values out of the report.
 - Do not modify the repository, run deployment commands, approve a change ticket, or trigger CI unless the user separately requests it.
 
+## MCP Integration
+
+Require the companion `release-evidence-pack-mcp` server. The source and installation instructions are available at <https://github.com/xiaohuxi/release-evidence-pack-mcp>.
+
+Configure the server with the narrowest repository root that covers the review:
+
+```json
+{
+  "mcpServers": {
+    "release-evidence-pack": {
+      "command": "node",
+      "args": ["/absolute/path/release-evidence-pack-mcp/dist/index.js"],
+      "env": {
+        "RELEASE_EVIDENCE_ALLOWED_ROOTS": "/absolute/path/repositories"
+      }
+    }
+  }
+}
+```
+
+Use only these read-only tools: `inspect_release_changes`, `summarize_test_reports`, and `build_release_evidence_pack`.
+
+## Examples
+
+Example requests that should trigger this skill:
+
+- “Review this branch before the production release and give me a go/no-go decision.”
+- “Check whether the test, DDL, artifact, and rollback evidence is complete.”
+- “Build a release evidence pack from `origin/main` and the Surefire reports.”
+- “Explain why this release is blocked and list the evidence required to unblock it.”
+
+Example MCP call:
+
+```json
+{
+  "repositoryRoot": "/workspace/order-service",
+  "baseRef": "origin/main",
+  "reportFiles": ["target/surefire-reports/TEST-order.xml"]
+}
+```
+
+## Error Handling
+
+- If the repository is outside `RELEASE_EVIDENCE_ALLOWED_ROOTS`, stop and request a narrower valid root; never broaden access automatically.
+- If `baseRef` is invalid or starts with `-`, stop and request a Git revision such as `HEAD`, a commit SHA, or `origin/main`.
+- If a report file is missing, escapes the repository root, or is malformed, mark that evidence as missing and do not claim the tests passed.
+- If Git is unavailable or the directory is not a repository, report the exact prerequisite and stop the review.
+- If MCP output and declared human evidence conflict, preserve both, mark the conflict, and use the verified MCP evidence for the decision.
+
+## Limits and Non-Trigger Conditions
+
+- Do not use this skill to execute a deployment, modify CI, approve a ticket, or roll back production.
+- Do not use it as a replacement for runtime monitoring, penetration testing, compliance approval, or a database backup.
+- Do not infer remote CI status, artifact digests, or environment health from a local working tree.
+- Do not use it for a general code review when no release-readiness decision is requested.
+- Support Git working-tree evidence and JUnit XML in version 1.0.0; mark other report formats as unsupported instead of guessing.
+
 ## Completion Criteria
 
 Declare the review complete only when:
