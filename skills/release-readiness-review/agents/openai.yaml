@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Readiness Review"
+  short_description: "汇总发布证据并输出风险门禁、上线条件与可执行回滚清单"
+  default_prompt: "Use $release-readiness-review to assess this release and produce an evidence-backed go/no-go decision."
