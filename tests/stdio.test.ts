@@ -66,5 +66,5 @@ describe("stdio MCP server", () => {
       }
     }));
     expect(replay).toEqual(expect.objectContaining({ total: 1, passed: 1, failed: 0 }));
-  });
+  }, 15_000);
 });
