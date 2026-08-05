@@ -49,7 +49,7 @@ Use `tool-contract-replay-mcp` as the evidence source. Review protocol-visible b
 
 ## MCP Integration
 
-Require the companion `tool-contract-replay-mcp` server from <https://github.com/xiaohuxi/tool-contract-replay-mcp>.
+Require the companion `tool-contract-replay-mcp` server from <https://github.com/xiaohuxi/release-evidence-pack-mcp/tree/tool-contract-replay-mcp>.
 
 Use only these tools:
 

@@ -4,7 +4,7 @@
   "description": "Read-only MCP server for snapshotting, diffing, and replaying MCP tool contracts.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaohuxi/tool-contract-replay-mcp.git"
+    "url": "git+https://github.com/xiaohuxi/release-evidence-pack-mcp.git#tool-contract-replay-mcp"
   },
   "type": "module",
   "bin": {
