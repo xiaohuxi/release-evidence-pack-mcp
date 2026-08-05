@@ -1,0 +1,4 @@
+interface:
+  display_name: "MCP Contract Regression Review"
+  short_description: "Review MCP tool contract drift with replay evidence"
+  default_prompt: "Use $mcp-contract-regression-review to compare two MCP versions and produce an evidence-backed compatibility decision."
