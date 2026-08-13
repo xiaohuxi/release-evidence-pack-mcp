@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retry Timeout Review"
+  short_description: "Review retry amplification and timeout failure paths"
+  default_prompt: "Use retry-timeout-review to review this microservice call path for retry, timeout, fallback, MQ redelivery, and idempotency risks."
